@@ -1,0 +1,122 @@
+/*
+Inspired by a video where I saw a similar effect.
+Many people in the comments were asking for the code, 
+so I decided to recreate it and make it open for everyone.
+
+Feel free to customize the flow, speed, and colors to match your style!
+*/
+:root {
+  --clr1: #ffaa00;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100vh;
+  background: #000;
+  overflow: hidden;
+}
+
+.container {
+  position: relative;
+  text-align: center;
+}
+
+.cloud {
+  position: relative;
+  top: 120px; /* Let's lower the cloud a bit */
+  width: 210px;
+  height: 110px;
+  z-index: 100;
+  background: var(--clr1);
+  border-radius: 50% / 60%;
+  filter: drop-shadow(0 0 35px var(--clr1));
+  margin: 0 auto;
+  transition: background-color 0.5s, filter 0.5s;
+}
+
+.cloud:before,
+.cloud:after {
+  content: "";
+  position: absolute;
+  background: inherit;
+  border-radius: 50%;
+  z-index: -1;
+  transition: background-color 0.5s, filter 0.5s;
+}
+
+.cloud:before {
+  width: 90px;
+  height: 90px;
+  top: -25px;
+  left: 50px;
+  transition: background-color 0.5s, filter 0.5s;
+}
+
+.cloud:after {
+  width: 120px;
+  height: 120px;
+  top: -60px;
+  right: -45px;
+  transition: background-color 0.5s, filter 0.5s;
+}
+
+.cloud h2 {
+  position: absolute;
+  top: 110px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1em;
+  white-space: nowrap;
+  color: #000;
+  font-weight: bold;
+  z-index: 500;
+  background: var(--clr1);
+  padding: 10px 25px;
+  border-radius: 10px;
+  transition: background-color 0.5s;
+}
+
+.drop {
+  position: absolute;
+  color: var(--clr1); /* Use color variable */
+  font-size: 1em;
+  top: 290px; /* Initial height above the drop */
+  left: 50%;
+  transform: translateX(-50%);
+  animation: none; /* No animation upon creation */
+  transition: color 0.5s; /* Smooth color transition */
+}
+
+.on-surface {
+  animation: none; /* Stop animation */
+  transform: translateY(350px); /* Fix position on the surface */
+  color: var(--clr1); /* Use color variable */
+  opacity: 1; /* Symbol is visible */
+  transition: color 0.5s; /* Smooth color transition */
+}
+
+@keyframes drop-fall {
+  0% {
+    transform: translate(0, 0); /* Starting point */
+    opacity: 1;
+  }
+  70% {
+    transform: translate(var(--horizontalSpread), 340px); /* Shift downward */
+  }
+  90% {
+    transform: translate(
+      var(--horizontalSpread),
+      340px
+    ); /* Slight "hit" on the surface */
+  }
+  100% {
+    transform: translate(
+      var(--horizontalSpread),
+      340px
+    ); /* Return to the surface */
+    opacity: 0; /* Gradual disappearance */
+  }
+}
